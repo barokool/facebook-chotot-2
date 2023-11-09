@@ -1,3 +1,7 @@
+# Figma
+
+https://www.figma.com/file/BozgJDGRWBwqhdeQ1pqKbz/NewzKast-Web-UI-(Community)?type=design&node-id=0-1&mode=design&t=FSxNfHgzFSoRpr4F-0
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
