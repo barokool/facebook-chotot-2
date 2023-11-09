@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 // import font
 
-import PretendardVariable from "../../assets/fonts/SpaceMono-Regular.ttf";
+import PretendardVariable from "../../assets/fonts/Poppins-Regular.ttf";
 export const GlobalStyles = createGlobalStyle`
   
   @font-face {
@@ -126,6 +126,10 @@ export const GlobalStyles = createGlobalStyle`
   /* Firefox */
   input[type=number] {
     -moz-appearance: textfield;
+  }
+
+  button:hover { 
+    opacity: 0.7;
   }
 
   

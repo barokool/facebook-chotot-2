@@ -30,7 +30,8 @@
       "@styles/*": ["styles/*"],
       "@templates/*": ["templates/*"],
       "@utils/*": ["utils/*"],
-      "@services/*": ["services/*"]
+      "@services/*": ["services/*"],
+      "layouts/*": ["layouts/*"]
     }
   },
   "include": ["vite.config.ts", ".eslintrc.cjs", "src"],
