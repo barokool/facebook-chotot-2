@@ -1,16 +1,35 @@
 import { Divider, Input } from "antd";
 import React, { ChangeEventHandler, useState } from "react";
 import styled from "styled-components";
-import { AudioOutlined } from "@ant-design/icons";
+import {
+  AudioOutlined,
+  SendOutlined,
+  LikeOutlined,
+  ShareAltOutlined,
+} from "@ant-design/icons";
 const { Search } = Input;
 const suffix = (
-  <AudioOutlined
+  <SendOutlined
     style={{
       fontSize: 16,
       color: "#1677ff",
     }}
   />
 );
+
+const actions = [
+  {
+    icon: <LikeOutlined />,
+    name: "Like",
+  },
+  {
+    name: "Comment",
+  },
+  {
+    icon: <ShareAltOutlined />,
+    name: "Share",
+  },
+];
 
 const Post = () => {
   const [search, setSearch] = useState("");
@@ -40,16 +59,25 @@ const Post = () => {
         </NumbersContainer>
 
         <Divider style={{ margin: 0 }} />
+
+        <NumbersContainer>
+          {actions.map((action) => (
+            <Flex
+              style={{ flexDirection: "row", gap: "12px" }}
+              key={action.name}
+            >
+              {action.icon}
+              <Text>{action.name}</Text>
+            </Flex>
+          ))}
+        </NumbersContainer>
+        <Divider style={{ margin: 0 }} />
       </Flex>
       <Input
         onChange={onSearch}
         addonAfter={suffix}
         placeholder="Write Comment"
       />
-      {/* author  */}
-      {/* numbers row */}
-      {/* actions */}
-      {/* comment */}
     </Wrapper>
   );
 };

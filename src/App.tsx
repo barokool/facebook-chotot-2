@@ -9,6 +9,7 @@ import { ROUTES } from "@constants/routes";
 import Favourite from "@pages/Feed/Favourite";
 import Trending from "@pages/Feed/Trending";
 import LayoutFeed from "layouts/LayoutFeed";
+import Profile from "@pages/Feed/Profile";
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
             {NotHaveAuthRoute()}
             <Route path="/" element={<Home />} />
             <Route element={<LayoutFeed />}>
+              <Route
+                path={ROUTES.USER_DETAIL(":userId")}
+                element={<Profile />}
+              />
               <Route path={ROUTES.FEED} element={<Trending />} />
               <Route path={ROUTES.FAVOURITE} element={<Favourite />} />
             </Route>

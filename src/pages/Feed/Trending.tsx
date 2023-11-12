@@ -7,7 +7,14 @@ const Trending = () => {
     <Wrapper>
       <p>Trending</p>
 
-      <Post />
+      <PostContainer>
+        {Array(10)
+          .fill(1)
+          .map((_, index) => (
+            <Post key={index} />
+          ))}
+        <Post />
+      </PostContainer>
     </Wrapper>
   );
 };
@@ -18,5 +25,12 @@ const Wrapper = styled.section`
   //maxwidth 500px and center
   max-width: 500px;
   margin: 0 auto;
+  margin-top: 20px;
+`;
+
+const PostContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   margin-top: 20px;
 `;

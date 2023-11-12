@@ -89,3 +89,5 @@ Trending sort by desc: created Time + likes + views + comments + shares
 # Newest page get list post :
 
 20 post get the latest time created
+
+# PG : Paypal
