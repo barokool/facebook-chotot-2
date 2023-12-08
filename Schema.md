@@ -47,6 +47,11 @@ schema
 * files
 * ReplyComments (1 - n)
 
+# Conversation
+
+- users (n-n)
+- messages (n-n)
+
 # Message
 
 - author (n-1)
