@@ -1,3 +1,4 @@
+import { color } from "@constants/color";
 import { ROUTES } from "@constants/routes";
 import { Image } from "antd";
 import React from "react";
@@ -52,7 +53,7 @@ const Button = styled.button`
 `;
 
 const OverRightButton = styled(Button)`
-  background: #ff9a00;
+  background: ${color.primary};
   outline: none;
   border: none;
 `;

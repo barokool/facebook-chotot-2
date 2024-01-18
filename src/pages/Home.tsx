@@ -1,15 +1,39 @@
-import { Image } from "antd";
+import { Form, Image } from "antd";
 import Header from "layouts/Header";
 import React from "react";
 import styled from "styled-components";
+import { Select, Row, Col, DatePicker, Button } from "antd";
+import { color } from "@constants/color";
 
+const banner = {
+  link: "#",
+  banner:
+    "https://resell-ticket.s3.ap-southeast-2.amazonaws.com/banner/98d728fa-3b76-42d7-b573-34ace9e3f81d.jpg",
+};
+const { Option } = Select;
 const Home = () => {
+  const onChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const onSearch = (value: string) => {
+    console.log("search:", value);
+  };
+
+  const filterOption = (
+    input: string,
+    option?: { label: string; value: string }
+  ) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+  const handleSearch = () => {
+    // Thực hiện xử lý tìm kiếm dựa trên các giá trị đã chọn
+    // Ví dụ: console.log(origin, destination, departureDate)
+  };
   return (
     <Container>
       <Wrapper>
         <BannerContainer>
           <Header />
-          <Flex>
+          {/* <Flex>
             <Left>
               <h1>Share the newz !</h1>
               <button>Get started</button>
@@ -29,17 +53,125 @@ const Home = () => {
                 src="/src/assets/images/imgpsh_fullsize_anim.png"
               />
             </Right>
-          </Flex>
+          </Flex> */}
         </BannerContainer>
       </Wrapper>
+
+      <Banner>
+        <a href="#">
+          <img src={banner?.banner} alt={banner?.banner} />
+        </a>
+      </Banner>
+
+      <WrapComponent>
+        <FormWrapper>
+          <FilterWrapper>
+            <ItemFilter>
+              <Title>Departure</Title>
+              <Select placeholder="Nơi đi" style={{ width: "100%" }}>
+                <Option value="Hanoi">Hà Nội</Option>
+                <Option value="HoChiMinh">Hồ Chí Minh</Option>
+                <Option value="Danang">Đà Nẵng</Option>
+              </Select>
+            </ItemFilter>
+            <ItemFilter>
+              <Title>Destination</Title>
+              <Select placeholder="Nơi đến" style={{ width: "100%" }}>
+                <Option value="Tokyo">Tokyo</Option>
+                <Option value="Seoul">Seoul</Option>
+                <Option value="Singapore">Singapore</Option>
+              </Select>
+            </ItemFilter>
+            <ItemFilter>
+              <Title>Time</Title>
+              <DatePicker placeholder="Ngày đi" style={{ width: "100%" }} />
+            </ItemFilter>
+            <ItemFilter>
+              <Button
+                type="primary"
+                onClick={handleSearch}
+                style={{ width: "100%", background: `${color.primary}` }}
+              >
+                Search
+              </Button>
+            </ItemFilter>
+          </FilterWrapper>
+        </FormWrapper>
+      </WrapComponent>
+
+      {/* <Banner>
+        <Select
+          showSearch
+          placeholder="Select a person"
+          optionFilterProp="children"
+          onChange={onChange}
+          onSearch={onSearch}
+          filterOption={filterOption}
+          options={[
+            {
+              value: "jack",
+              label: "Jack",
+            },
+            {
+              value: "lucy",
+              label: "Lucy",
+            },
+            {
+              value: "tom",
+              label: "Tom",
+            },
+          ]}
+        />
+      </Banner> */}
     </Container>
   );
 };
 
 export default Home;
 
-const Container = styled.div`
-  background: #1e418d;
+const Container = styled.div``;
+
+const Title = styled.span`
+  font-weight: 700;
+  font-size: 16px;
+`;
+
+const FormWrapper = styled(Form)`
+  width: 100%;
+  padding: 15px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid rgb(237, 242, 247);
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px;
+  margin-bottom: 15px;
+`;
+
+const FilterWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  -moz-box-pack: justify;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: -10px;
+`;
+
+const ItemFilter = styled.div`
+  padding: 10px 5px;
+  width: 20%;
+  flex: 1 1 0%;
+`;
+
+const WrapComponent = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+  padding: 20px 30px;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  width: 100%;
 `;
 
 const Wrapper = styled.section`
@@ -106,5 +238,24 @@ const AvailableContainer = styled.div`
   span {
     color: #1e418d;
     font-weight: 700;
+  }
+`;
+
+const Banner = styled.div`
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  height: 480px;
+  border-radius: 20%;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    align-self: center;
+  }
+  @media (max-width: ${(props) => props.theme.breakPoint.md}px) {
+    height: fit-content;
+    padding: 40px 0;
   }
 `;

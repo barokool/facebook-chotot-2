@@ -10,6 +10,7 @@ import Favourite from "@pages/Feed/Favourite";
 import Trending from "@pages/Feed/Trending";
 import LayoutFeed from "layouts/LayoutFeed";
 import Profile from "@pages/Feed/Profile";
+import FilterPage from "@pages/New";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route>
             {NotHaveAuthRoute()}
             <Route path="/" element={<Home />} />
+            <Route path={ROUTES.NEW} element={<FilterPage />} />
             <Route element={<LayoutFeed />}>
               <Route
                 path={ROUTES.USER_DETAIL(":userId")}

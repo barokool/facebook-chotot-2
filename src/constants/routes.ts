@@ -14,4 +14,5 @@ export const ROUTES = {
   USER_DETAIL: (id: string) => `/profile/${id}`,
 
   CHAT: "chat",
+  NEW: "new",
 };
