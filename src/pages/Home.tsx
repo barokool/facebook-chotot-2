@@ -4,6 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { Select, Row, Col, DatePicker, Button } from "antd";
 import { color } from "@constants/color";
+import { Content } from "antd/es/layout/layout";
 
 const banner = {
   link: "#",
@@ -24,15 +25,13 @@ const Home = () => {
     input: string,
     option?: { label: string; value: string }
   ) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
-  const handleSearch = () => {
-    // Thực hiện xử lý tìm kiếm dựa trên các giá trị đã chọn
-    // Ví dụ: console.log(origin, destination, departureDate)
-  };
+  const handleSearch = () => {};
   return (
     <Container>
       <Wrapper>
         <BannerContainer>
           <Header />
+          <BannerUnderHeader />
           {/* <Flex>
             <Left>
               <h1>Share the newz !</h1>
@@ -57,11 +56,11 @@ const Home = () => {
         </BannerContainer>
       </Wrapper>
 
-      <Banner>
+      {/* <Banner>
         <a href="#">
           <img src={banner?.banner} alt={banner?.banner} />
         </a>
-      </Banner>
+      </Banner> */}
 
       <WrapComponent>
         <FormWrapper>
@@ -98,37 +97,43 @@ const Home = () => {
           </FilterWrapper>
         </FormWrapper>
       </WrapComponent>
-
-      {/* <Banner>
-        <Select
-          showSearch
-          placeholder="Select a person"
-          optionFilterProp="children"
-          onChange={onChange}
-          onSearch={onSearch}
-          filterOption={filterOption}
-          options={[
-            {
-              value: "jack",
-              label: "Jack",
-            },
-            {
-              value: "lucy",
-              label: "Lucy",
-            },
-            {
-              value: "tom",
-              label: "Tom",
-            },
-          ]}
-        />
-      </Banner> */}
     </Container>
   );
 };
 
 export default Home;
 
+//https://787.vn/vi/
+//https://www.figma.com/file/6Fib6dxrx5f2vgCn5c1waJ/Tour-Guide---travel-agency%2Ftravel-booking-website-(Community)?type=design&node-id=37-2&mode=design&t=2gtq6pp1c6GbFw6h-0
+
+const BannerUnderHeader: React.FC = () => {
+  return (
+    <Content>
+      {/* Your page content goes here */}
+      <div style={{ position: "relative", textAlign: "center" }}>
+        <img
+          src="https://static.vexere.com/production/banners/910/leaderboard_1440x480.jpg"
+          alt="Banner"
+          style={{ width: "100%", height: "auto" }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <Title style={{ color: "#fff" }}>Your Banner Heading</Title>
+        </div>
+      </div>
+    </Content>
+  );
+};
+
+// ------------
+
+// -------------------------------------------------
 const Container = styled.div``;
 
 const Title = styled.span`
