@@ -1,3 +1,9 @@
+api trip detail
+
+GET
+https://api.vexere.com/v3/trip/v2CNINENMNGgIyMyICMTUwq_yXBzoKMTktMDEtMjAyNEgdUKEDqAGeBA?from=29&to=417&config=ONLINE&available_seats=29
+bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXAiOjIsInVzciI6ImZlIiwiY2lkIjoiYTRlYWM1MDAtMzYyNC0xMWU1LWFjOWUtMDkxMjRjNjAxMDEzIiwiY3BuIjoxLCJleHAiOjE3MDU1ODY1MTN9.gTG3Ev6bqa-WMieA2BUjVkx2ruyx4VqIeMbjkIYXXms
+
 schema
 
 # Base
