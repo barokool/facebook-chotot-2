@@ -10,7 +10,13 @@ const Header = () => {
 
   return (
     <Container>
-      <Image width={200} src="/src/assets/images/logo.png" />
+      <Image
+        width={200}
+        src="/src/assets/images/logo.png"
+        preview={false}
+        onClick={() => navigate(ROUTES.ALL)}
+        style={{ cursor: "pointer" }}
+      />
 
       <ButtonContainer>
         <Button onClick={() => navigate(ROUTES.SIGN_IN)}>Log In</Button>

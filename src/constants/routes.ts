@@ -15,4 +15,5 @@ export const ROUTES = {
 
   CHAT: "chat",
   NEW: "new",
+  BOOKING: "booking",
 };

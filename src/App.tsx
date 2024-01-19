@@ -11,6 +11,7 @@ import Trending from "@pages/Feed/Trending";
 import LayoutFeed from "layouts/LayoutFeed";
 import Profile from "@pages/Feed/Profile";
 import FilterPage from "@pages/New";
+import BookingPage from "@pages/Booking";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
             {NotHaveAuthRoute()}
             <Route path="/" element={<Home />} />
             <Route path={ROUTES.NEW} element={<FilterPage />} />
+            <Route path={ROUTES.BOOKING} element={<BookingPage />} />
+
             <Route element={<LayoutFeed />}>
               <Route
                 path={ROUTES.USER_DETAIL(":userId")}

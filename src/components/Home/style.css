@@ -1,0 +1,20 @@
+.slick-track {
+  display: flex !important;
+  gap: 12px;
+}
+
+.slick-arrow {
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 10px solid transparent !important; /* Độ rộng và màu của phần tam giác bên trái */
+  border-right: 10px solid transparent !important; /* Độ rộng và màu của phần tam giác bên phải */
+  border-bottom: 10px solid #000 !important;
+}
+
+.slick-prev {
+  transform: rotate(270deg) !important;
+}
+
+.slick-next {
+  transform: rotate(90deg) !important;
+}
