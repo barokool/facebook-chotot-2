@@ -1,15 +1,38 @@
-import { Form, Image } from "antd";
+import { Form, Image, Modal } from "antd";
 import Header from "layouts/Header";
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Select, Row, Col, DatePicker, Button } from "antd";
 import { Content } from "antd/es/layout/layout";
 import FilterSection from "@components/FilterSection";
 import CarouselComponent from "@components/Home/Carousel";
+import { useParams } from "react-router-dom";
 
 const Home = () => {
+  const query = new URLSearchParams(window.location.search);
+  const isRegisterSuccess = query.get("register");
+  const [isOpenFormUser, setIsOpenFormUser] = React.useState(false);
+  console.log(isRegisterSuccess);
+
+  useEffect(() => {
+    if (isRegisterSuccess === "success") {
+      setIsOpenFormUser(true);
+    }
+  }, []);
+
   return (
     <Container>
+      <Modal
+        title="Choose your type of user"
+        centered
+        open={isOpenFormUser}
+        onOk={() => setIsOpenFormUser(false)}
+        onCancel={() => setIsOpenFormUser(false)}
+      >
+        <p>Business</p>
+        <p>Normal user as Buyer</p>
+      </Modal>
+
       <Wrapper>
         <BannerContainer>
           <Header />

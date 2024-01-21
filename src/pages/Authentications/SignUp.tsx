@@ -1,3 +1,4 @@
+import { ROUTES } from "@constants/routes";
 import { Checkbox, Form, Input, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -9,7 +10,7 @@ const SignUp = () => {
 
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
-    navigate("/auth-with-email");
+    navigate(`${ROUTES.ALL}?register=success`);
   };
 
   const prefixSelector = (
@@ -61,7 +62,7 @@ const SignUp = () => {
             <Input placeholder="Email" />
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             name="phone"
             // label="Phone"
             rules={[
@@ -77,7 +78,7 @@ const SignUp = () => {
               style={{ width: "100%" }}
               placeholder="Input your phone"
             />
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item
             name="password"

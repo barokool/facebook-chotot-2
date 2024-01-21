@@ -19,9 +19,8 @@ const Header = () => {
       />
 
       <ButtonContainer>
-        <Button onClick={() => navigate(ROUTES.SIGN_IN)}>Log In</Button>
-        <OverRightButton onClick={() => navigate(ROUTES.SIGN_UP)}>
-          Sign Up
+        <OverRightButton onClick={() => navigate(ROUTES.SIGN_IN)}>
+          Log In
         </OverRightButton>
       </ButtonContainer>
     </Container>
