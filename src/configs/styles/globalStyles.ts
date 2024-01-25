@@ -1,20 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 // import font
 
-import PretendardVariable from "../../assets/fonts/Poppins-Regular.ttf";
 export const GlobalStyles = createGlobalStyle`
-  
-  @font-face {
-    font-family: 'Pretendard-Variable';
-    src: url(${PretendardVariable}) format('truetype');
-    font-style: normal;
-    font-weight: 400;
-  }
-
 
   * {
     margin: 0;
-    font-family: 'Pretendard-Variable';
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

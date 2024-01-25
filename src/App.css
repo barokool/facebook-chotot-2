@@ -1,14 +1,7 @@
-@font-face {
-  font-family: "Pretendard-Variable";
-  src: url("../src/assets/fonts/Poppins-Regular.ttf");
-}
-
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: "Pretendard-Variable";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Poppins", sans-serif;
 }
 *,
 *::before,

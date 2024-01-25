@@ -1,10 +1,11 @@
 import FilterSection from "@components/FilterSection";
 import { color } from "@constants/color";
 import { TripData } from "@constants/data";
+import { Divider, Input, Radio, RadioChangeEvent, Space } from "antd";
 import Header from "layouts/Header";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
+import "./style.css";
 const banner = {
   link: "#",
   banner:
@@ -12,6 +13,12 @@ const banner = {
 };
 
 const BookingPage = () => {
+  const onChange = (e: RadioChangeEvent) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+  };
+  const [value, setValue] = useState(1);
+
   return (
     <Container>
       <Wrapper>
@@ -35,9 +42,14 @@ const BookingPage = () => {
                   <TripWrapper key={index}>
                     <img src={item.thumbnail} alt="" />
                     <TripInfo>
-                      <div>
+                      <Flex>
                         <TripTitle>{item.businessName}</TripTitle>
-                      </div>
+                        <TripTitle
+                          style={{ fontWeight: 500, fontSize: "18px" }}
+                        >
+                          Từ {item.minPrice}
+                        </TripTitle>
+                      </Flex>
                       <div>
                         <TripTitle style={{ fontWeight: "normal" }}>
                           {item.seatTemplateOption}
@@ -60,7 +72,23 @@ const BookingPage = () => {
               })}
             </BookingTripWrapper>
           </BookingTripContainer>
-          <FilterContainer></FilterContainer>
+          <FilterContainer>
+            <FilterWrapper>
+              <TripTitle>Bộ lọc</TripTitle>
+              <Divider />
+              <div>
+                <FilterSectionTitle>Sắp xếp</FilterSectionTitle>
+
+                <Radio.Group onChange={onChange} value={value}>
+                  <Space direction="vertical">
+                    <Radio value={1}>Giá tăng dần</Radio>
+                    <Radio value={2}>Giá giảm dần</Radio>
+                    <Radio value={3}>Đánh giá</Radio>
+                  </Space>
+                </Radio.Group>
+              </div>
+            </FilterWrapper>
+          </FilterContainer>
         </BookingContainer>
       </Wrapper>
     </Container>
@@ -119,7 +147,6 @@ const BookingTripWrapper = styled.div`
 
 const FilterContainer = styled.aside`
   width: 280px;
-  height: 700px;
   border-radius: 4px;
   background-color: #fff;
 `;
@@ -127,7 +154,7 @@ const FilterContainer = styled.aside`
 const TripWrapper = styled.div`
   width: 100%;
   padding: 16px;
-  height: 300px;
+  height: 200px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -135,14 +162,16 @@ const TripWrapper = styled.div`
   border-radius: 4px;
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
   }
 `;
 
 const TripInfo = styled.div`
-  background-color: #b6acac;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   width: 100%;
   height: 100%;
 `;
@@ -153,7 +182,29 @@ const TripTitle = styled.h3`
   font-weight: bold;
 `;
 
+const FilterSectionTitle = styled.h3`
+  font-size: 14px;
+  color: rgb(26, 32, 44);
+  font-weight: 600;
+  margin-bottom: 15px;
+`;
+
 const TripTimeWrapper = styled.div`
   display: flex;
+  align-items: center;
+`;
+
+const FilterWrapper = styled.div`
+  padding: 15px;
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px;
+  background-color: white;
+  border: 1px solid rgb(237, 242, 247);
+`;
+
+const Flex = styled.div`
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
