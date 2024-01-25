@@ -5,7 +5,9 @@ import { Divider, Input, Radio, RadioChangeEvent, Space } from "antd";
 import Header from "layouts/Header";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { CaretDownOutlined } from "@ant-design/icons";
 import "./style.css";
+
 const banner = {
   link: "#",
   banner:
@@ -56,16 +58,29 @@ const BookingPage = () => {
                         </TripTitle>
                       </div>
                       <TripTimeWrapper>
-                        <div>
+                        <div style={{ width: "100%" }}>
                           <TripTitle style={{ fontWeight: "normal" }}>
                             From {item.departure} - {item.startTime}
                           </TripTitle>
-
                           <TripTitle style={{ fontWeight: "normal" }}>
                             To {item.destination} - {item.endTime}
                           </TripTitle>
                         </div>
                       </TripTimeWrapper>
+                      <Flex
+                        style={{
+                          justifyContent: "space-between",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <Flex style={{ gap: "4px", alignItems: "center" }}>
+                          <TripTitle>Thông tin chi tiết</TripTitle>
+                          <CaretDownOutlined />
+                        </Flex>
+                        <div>
+                          <BtnBooking>Booking</BtnBooking>
+                        </div>
+                      </Flex>
                     </TripInfo>
                   </TripWrapper>
                 );
@@ -207,4 +222,14 @@ const Flex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const BtnBooking = styled.button`
+  background: rgb(255, 199, 0);
+  color: rgb(72, 72, 72);
+  font-weight: 500;
+  border-radius: 2px;
+  border: none;
+  padding: 8px 16px;
+  height: 35px;
 `;
