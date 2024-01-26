@@ -1,18 +1,20 @@
 import FilterSection from "@components/FilterSection";
 import { color } from "@constants/color";
 import { TripData } from "@constants/data";
-import { Divider, Input, Radio, RadioChangeEvent, Space } from "antd";
+import { Divider, Input, Radio, RadioChangeEvent, Space, Tabs } from "antd";
 import Header from "layouts/Header";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { CaretDownOutlined } from "@ant-design/icons";
 import "./style.css";
-
+import { ConfigProviderProps } from "antd/es/config-provider";
 const banner = {
   link: "#",
   banner:
     "https://resell-ticket.s3.ap-southeast-2.amazonaws.com/banner/98d728fa-3b76-42d7-b573-34ace9e3f81d.jpg",
 };
+
+type SizeType = ConfigProviderProps["componentSize"];
 
 const BookingPage = () => {
   const onChange = (e: RadioChangeEvent) => {
@@ -20,6 +22,15 @@ const BookingPage = () => {
     setValue(e.target.value);
   };
   const [value, setValue] = useState(1);
+
+  const [size, setSize] = useState<SizeType>("small");
+  const [openCollapse, setOpenCollapse] = useState(false);
+
+  const onChange2 = (e: RadioChangeEvent) => {
+    setSize(e.target.value);
+  };
+
+  console.log(openCollapse);
 
   return (
     <Container>
@@ -41,48 +52,71 @@ const BookingPage = () => {
             <BookingTripWrapper>
               {TripData.map((item, index) => {
                 return (
-                  <TripWrapper key={index}>
-                    <img src={item.thumbnail} alt="" />
-                    <TripInfo>
-                      <Flex>
-                        <TripTitle>{item.businessName}</TripTitle>
-                        <TripTitle
-                          style={{ fontWeight: 500, fontSize: "18px" }}
-                        >
-                          Từ {item.minPrice}
-                        </TripTitle>
-                      </Flex>
-                      <div>
-                        <TripTitle style={{ fontWeight: "normal" }}>
-                          {item.seatTemplateOption}
-                        </TripTitle>
-                      </div>
-                      <TripTimeWrapper>
-                        <div style={{ width: "100%" }}>
-                          <TripTitle style={{ fontWeight: "normal" }}>
-                            From {item.departure} - {item.startTime}
+                  <div style={{ width: "100%" }}>
+                    <TripWrapper key={index}>
+                      <img src={item.thumbnail} alt="sdfsdf" />
+                      <TripInfo>
+                        <Flex>
+                          <TripTitle>{item.businessName}</TripTitle>
+                          <TripTitle
+                            style={{ fontWeight: 500, fontSize: "18px" }}
+                          >
+                            Từ {item.minPrice}
                           </TripTitle>
-                          <TripTitle style={{ fontWeight: "normal" }}>
-                            To {item.destination} - {item.endTime}
-                          </TripTitle>
-                        </div>
-                      </TripTimeWrapper>
-                      <Flex
-                        style={{
-                          justifyContent: "space-between",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <Flex style={{ gap: "4px", alignItems: "center" }}>
-                          <TripTitle>Thông tin chi tiết</TripTitle>
-                          <CaretDownOutlined />
                         </Flex>
                         <div>
-                          <BtnBooking>Booking</BtnBooking>
+                          <TripTitle style={{ fontWeight: "normal" }}>
+                            {item.seatTemplateOption}
+                          </TripTitle>
                         </div>
-                      </Flex>
-                    </TripInfo>
-                  </TripWrapper>
+                        <TripTimeWrapper>
+                          <div style={{ width: "100%" }}>
+                            <TripTitle style={{ fontWeight: "normal" }}>
+                              From {item.departure} - {item.startTime}
+                            </TripTitle>
+                            <TripTitle style={{ fontWeight: "normal" }}>
+                              To {item.destination} - {item.endTime}
+                            </TripTitle>
+                          </div>
+                        </TripTimeWrapper>
+                        <Flex
+                          style={{
+                            justifyContent: "space-between",
+                            cursor: "pointer",
+                          }}
+                        >
+                          <Flex style={{ gap: "4px", alignItems: "center" }}>
+                            <TripTitle
+                              onClick={() => setOpenCollapse(!openCollapse)}
+                            >
+                              Thông tin chi tiết
+                            </TripTitle>
+                            <CaretDownOutlined />
+                          </Flex>
+                          <div>
+                            <BtnBooking>Booking</BtnBooking>
+                          </div>
+                        </Flex>
+                      </TripInfo>
+                    </TripWrapper>
+                    {openCollapse && (
+                      <div style={{ background: "#fff" }}>
+                        <Tabs
+                          defaultActiveKey="1"
+                          type="card"
+                          size={size}
+                          items={new Array(3).fill(null).map((_, i) => {
+                            const id = String(i + 1);
+                            return {
+                              label: `Card Tab ${id}`,
+                              key: id,
+                              children: `Content of card tab ${id}`,
+                            };
+                          })}
+                        />
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </BookingTripWrapper>
