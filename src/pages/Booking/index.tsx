@@ -8,6 +8,8 @@ import styled from "styled-components";
 import { CaretDownOutlined } from "@ant-design/icons";
 import "./style.css";
 import { ConfigProviderProps } from "antd/es/config-provider";
+import DepartureDestination from "./components/DepartureDestination";
+import Rating from "./components/Rating";
 const banner = {
   link: "#",
   banner:
@@ -15,6 +17,17 @@ const banner = {
 };
 
 type SizeType = ConfigProviderProps["componentSize"];
+
+const tabs = [
+  {
+    label: "Điểm đón, trả",
+    component: <DepartureDestination />,
+  },
+  {
+    label: "Đánh giá",
+    component: <Rating />,
+  },
+];
 
 const BookingPage = () => {
   const onChange = (e: RadioChangeEvent) => {
@@ -29,8 +42,6 @@ const BookingPage = () => {
   const onChange2 = (e: RadioChangeEvent) => {
     setSize(e.target.value);
   };
-
-  console.log(openCollapse);
 
   return (
     <Container>
@@ -85,13 +96,18 @@ const BookingPage = () => {
                             cursor: "pointer",
                           }}
                         >
-                          <Flex style={{ gap: "4px", alignItems: "center" }}>
-                            <TripTitle
-                              onClick={() => setOpenCollapse(!openCollapse)}
-                            >
-                              Thông tin chi tiết
-                            </TripTitle>
-                            <CaretDownOutlined />
+                          <Flex
+                            style={{ gap: "4px", alignItems: "center" }}
+                            onClick={() => setOpenCollapse(!openCollapse)}
+                          >
+                            <TripTitle>Thông tin chi tiết</TripTitle>
+                            {openCollapse ? (
+                              <CaretDownOutlined
+                                style={{ transform: "rotate(180deg)" }}
+                              />
+                            ) : (
+                              <CaretDownOutlined />
+                            )}
                           </Flex>
                           <div>
                             <BtnBooking>Booking</BtnBooking>
@@ -105,14 +121,16 @@ const BookingPage = () => {
                           defaultActiveKey="1"
                           type="card"
                           size={size}
-                          items={new Array(3).fill(null).map((_, i) => {
-                            const id = String(i + 1);
-                            return {
-                              label: `Card Tab ${id}`,
-                              key: id,
-                              children: `Content of card tab ${id}`,
-                            };
-                          })}
+                          centered
+                          items={
+                            tabs.map((tab, i) => {
+                              return {
+                                label: tab.label,
+                                key: i,
+                                children: tab.component,
+                              };
+                            }) as any[]
+                          }
                         />
                       </div>
                     )}
