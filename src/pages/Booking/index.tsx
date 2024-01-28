@@ -175,7 +175,7 @@ const BookingPage = () => {
                     </TripWrapper>
 
                     <div style={{ background: "#fff" }}>
-                      <div
+                      {/* <div
                         style={{
                           display: "flex",
                           justifyContent: "center",
@@ -183,7 +183,7 @@ const BookingPage = () => {
                         }}
                       >
                         <Spin />
-                      </div>
+                      </div> */}
 
                       {booleanRenderTabChildren(index)}
                     </div>
@@ -198,21 +198,7 @@ const BookingPage = () => {
               <Divider />
               <div>
                 <FilterSectionTitle>Sắp xếp</FilterSectionTitle>
-                <Tabs
-                  defaultActiveKey="1"
-                  type="card"
-                  size={size}
-                  centered
-                  items={
-                    tabs.map((tab, i) => {
-                      return {
-                        label: tab.label,
-                        key: i,
-                        children: tab.component,
-                      };
-                    }) as any[]
-                  }
-                />
+
                 <Radio.Group onChange={onChange} value={value}>
                   <Space direction="vertical">
                     <Radio value={1}>Giá tăng dần</Radio>
