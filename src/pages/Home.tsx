@@ -7,6 +7,7 @@ import { Content } from "antd/es/layout/layout";
 import FilterSection from "@components/FilterSection";
 import CarouselComponent from "@components/Home/Carousel";
 import { useParams } from "react-router-dom";
+import { color } from "@constants/color";
 
 const Home = () => {
   const query = new URLSearchParams(window.location.search);
@@ -80,7 +81,9 @@ const BannerUnderHeader: React.FC = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  background: ${color.background};
+`;
 
 const Title = styled.span`
   font-weight: 700;

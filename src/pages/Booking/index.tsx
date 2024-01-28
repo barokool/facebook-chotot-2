@@ -1,9 +1,17 @@
 import FilterSection from "@components/FilterSection";
 import { color } from "@constants/color";
 import { TripData } from "@constants/data";
-import { Divider, Input, Radio, RadioChangeEvent, Space, Tabs } from "antd";
+import {
+  Divider,
+  Input,
+  Radio,
+  RadioChangeEvent,
+  Space,
+  Spin,
+  Tabs,
+} from "antd";
 import Header from "layouts/Header";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { CaretDownOutlined } from "@ant-design/icons";
 import "./style.css";
@@ -31,16 +39,44 @@ const tabs = [
 
 const BookingPage = () => {
   const onChange = (e: RadioChangeEvent) => {
-    console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
   const [value, setValue] = useState(1);
 
   const [size, setSize] = useState<SizeType>("small");
-  const [openCollapse, setOpenCollapse] = useState(false);
+  const [openCollapse, setOpenCollapse] = useState({
+    id: 0,
+    open: false,
+  });
+  const [bookingCollapse, setBookingCollapse] = useState({
+    id: 0,
+    open: false,
+  });
 
-  const onChange2 = (e: RadioChangeEvent) => {
-    setSize(e.target.value);
+  const booleanRenderTabChildren = (index: number) => {
+    if (openCollapse.id === index) {
+      if (openCollapse.open) {
+        return (
+          <Tabs
+            defaultActiveKey="1"
+            type="card"
+            size={size}
+            centered
+            items={
+              tabs.map((tab, i) => {
+                return {
+                  label: tab.label,
+                  key: i,
+                  children: tab.component,
+                };
+              }) as any[]
+            }
+          />
+        );
+      } else if (bookingCollapse.open) {
+        return <div>booking tab</div>;
+      }
+    } else return null;
   };
 
   return (
@@ -98,10 +134,19 @@ const BookingPage = () => {
                         >
                           <Flex
                             style={{ gap: "4px", alignItems: "center" }}
-                            onClick={() => setOpenCollapse(!openCollapse)}
+                            onClick={() => {
+                              setOpenCollapse({
+                                id: index,
+                                open: !openCollapse.open,
+                              });
+                              setBookingCollapse({
+                                id: index,
+                                open: false,
+                              });
+                            }}
                           >
                             <TripTitle>Thông tin chi tiết</TripTitle>
-                            {openCollapse ? (
+                            {openCollapse.id === index && openCollapse.open ? (
                               <CaretDownOutlined
                                 style={{ transform: "rotate(180deg)" }}
                               />
@@ -110,30 +155,38 @@ const BookingPage = () => {
                             )}
                           </Flex>
                           <div>
-                            <BtnBooking>Booking</BtnBooking>
+                            <BtnBooking
+                              onClick={() => {
+                                setBookingCollapse({
+                                  id: index,
+                                  open: !bookingCollapse.open,
+                                });
+                                setOpenCollapse({
+                                  id: index,
+                                  open: false,
+                                });
+                              }}
+                            >
+                              Booking
+                            </BtnBooking>
                           </div>
                         </Flex>
                       </TripInfo>
                     </TripWrapper>
-                    {openCollapse && (
-                      <div style={{ background: "#fff" }}>
-                        <Tabs
-                          defaultActiveKey="1"
-                          type="card"
-                          size={size}
-                          centered
-                          items={
-                            tabs.map((tab, i) => {
-                              return {
-                                label: tab.label,
-                                key: i,
-                                children: tab.component,
-                              };
-                            }) as any[]
-                          }
-                        />
+
+                    <div style={{ background: "#fff" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          padding: "12px",
+                        }}
+                      >
+                        <Spin />
                       </div>
-                    )}
+
+                      {booleanRenderTabChildren(index)}
+                    </div>
                   </div>
                 );
               })}
@@ -145,7 +198,21 @@ const BookingPage = () => {
               <Divider />
               <div>
                 <FilterSectionTitle>Sắp xếp</FilterSectionTitle>
-
+                <Tabs
+                  defaultActiveKey="1"
+                  type="card"
+                  size={size}
+                  centered
+                  items={
+                    tabs.map((tab, i) => {
+                      return {
+                        label: tab.label,
+                        key: i,
+                        children: tab.component,
+                      };
+                    }) as any[]
+                  }
+                />
                 <Radio.Group onChange={onChange} value={value}>
                   <Space direction="vertical">
                     <Radio value={1}>Giá tăng dần</Radio>
