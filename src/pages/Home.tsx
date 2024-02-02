@@ -8,12 +8,21 @@ import FilterSection from "@components/FilterSection";
 import CarouselComponent from "@components/Home/Carousel";
 import { useParams } from "react-router-dom";
 import { color } from "@constants/color";
+import { useQuery } from "react-query";
 
 const Home = () => {
   const query = new URLSearchParams(window.location.search);
   const isRegisterSuccess = query.get("register");
   const [isOpenFormUser, setIsOpenFormUser] = React.useState(false);
   console.log(isRegisterSuccess);
+
+  const { isLoading, error, data } = useQuery("repoData", () =>
+    fetch("https://api.github.com/repos/tannerlinsley/react-query").then(
+      (res) => res.json()
+    )
+  );
+
+  console.log(data);
 
   useEffect(() => {
     if (isRegisterSuccess === "success") {

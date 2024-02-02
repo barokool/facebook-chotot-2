@@ -1,5 +1,8 @@
 import { ROUTES } from "@constants/routes";
 import { Checkbox, Form, Input, Select } from "antd";
+import { API_URL } from "configs/contants/contants";
+import { axiosInstance } from "configs/http/axios";
+import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,10 +10,30 @@ const { Option } = Select;
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { isLoading, mutate } = useMutation({
+    mutationFn: (values: any) => {
+      return axiosInstance.post(`/auth/sign-up`, values);
+    },
+    onSuccess: (data) => {
+      console.log("success");
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log("error");
+      console.log(error);
+    },
+  });
 
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
-    navigate(`${ROUTES.ALL}?register=success`);
+    // navigate(`${ROUTES.ALL}?register=success`);
+    const formValues = {
+      name: `${values.firstName} ${values.lastName}`,
+      phoneNumber: values.phone,
+      password: values.password,
+      email: values.email,
+    };
+    mutate(formValues);
   };
 
   const prefixSelector = (
@@ -62,14 +85,14 @@ const SignUp = () => {
             <Input placeholder="Email" />
           </Form.Item>
 
-          {/* <Form.Item
+          <Form.Item
             name="phone"
             // label="Phone"
             rules={[
               {
                 required: true,
                 message: "Please input your phone number!",
-                type: "number",
+                type: "string",
               },
             ]}
           >
@@ -78,7 +101,7 @@ const SignUp = () => {
               style={{ width: "100%" }}
               placeholder="Input your phone"
             />
-          </Form.Item> */}
+          </Form.Item>
 
           <Form.Item
             name="password"
