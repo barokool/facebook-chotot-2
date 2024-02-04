@@ -16,13 +16,8 @@ const Home = () => {
   const [isOpenFormUser, setIsOpenFormUser] = React.useState(false);
   console.log(isRegisterSuccess);
 
-  const { isLoading, error, data } = useQuery("repoData", () =>
-    fetch("https://api.github.com/repos/tannerlinsley/react-query").then(
-      (res) => res.json()
-    )
-  );
+ 
 
-  console.log(data);
 
   useEffect(() => {
     if (isRegisterSuccess === "success") {

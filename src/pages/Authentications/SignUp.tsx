@@ -1,5 +1,6 @@
 import { ROUTES } from "@constants/routes";
-import { Checkbox, Form, Input, Select } from "antd";
+import { handleLogin } from "@utils/auth";
+import { Checkbox, Form, Input, Select, message } from "antd";
 import { API_URL } from "configs/contants/contants";
 import { axiosInstance } from "configs/http/axios";
 import { useMutation } from "react-query";
@@ -14,19 +15,19 @@ const SignUp = () => {
     mutationFn: (values: any) => {
       return axiosInstance.post(`/auth/sign-up`, values);
     },
-    onSuccess: (data) => {
-      console.log("success");
-      console.log(data);
+    onSuccess: (data: {
+      data: { data: { accessToken: string; user: any } };
+    }) => {
+      handleLogin(data?.data?.data?.accessToken, data?.data?.data?.user);
+      navigate(`${ROUTES.ALL}?register=success`);
+      message.success("Register success");
     },
-    onError: (error) => {
-      console.log("error");
-      console.log(error);
+    onError: (error: any) => {
+      message.error(`Register failed! ${error?.response?.data?.message}`);
     },
   });
 
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
-    // navigate(`${ROUTES.ALL}?register=success`);
     const formValues = {
       name: `${values.firstName} ${values.lastName}`,
       phoneNumber: values.phone,

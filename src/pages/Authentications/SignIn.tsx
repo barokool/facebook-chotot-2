@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const SignIn = () => {
   const navigate = useNavigate();
+
   return (
     <Wrapper>
       <LeftHalf></LeftHalf>
