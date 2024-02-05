@@ -16,9 +16,6 @@ const Home = () => {
   const [isOpenFormUser, setIsOpenFormUser] = React.useState(false);
   console.log(isRegisterSuccess);
 
- 
-
-
   useEffect(() => {
     if (isRegisterSuccess === "success") {
       setIsOpenFormUser(true);

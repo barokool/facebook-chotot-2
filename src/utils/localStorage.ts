@@ -51,14 +51,3 @@ export const saveLocalStorage = ({
     localHandler.setSession(name, data);
   }
 };
-
-export const getUserLocal = (): UserType | null => {
-  let user: UserType | null = null;
-  try {
-    user = JSON.parse(getLocalStorage(USER) || "");
-  } catch (err) {
-    /* empty */
-  }
-
-  return user;
-};
