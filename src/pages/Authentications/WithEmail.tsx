@@ -1,12 +1,34 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, Spin, message } from "antd";
 import React from "react";
 import styled from "styled-components";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import { axiosInstance } from "configs/http/axios";
+import { handleLogin } from "@utils/auth";
+import { ROUTES } from "@constants/routes";
 
 const WithEmail = () => {
+  const navigate = useNavigate();
+
+  const { isLoading, mutate } = useMutation({
+    mutationFn: (values: any) => {
+      return axiosInstance.post(`/auth/sign-in`, values);
+    },
+    onSuccess: (data: {
+      data: { data: { accessToken: string; user: any } };
+    }) => {
+      handleLogin(data?.data?.data?.accessToken, data?.data?.data?.user);
+      navigate(`${ROUTES.ALL}`);
+      message.success("Login success");
+    },
+    onError: (error: any) => {
+      message.error(`Login failed! ${error?.response?.data?.message}`);
+    },
+  });
+
   const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+    mutate(values);
   };
 
   return (
@@ -22,7 +44,7 @@ const WithEmail = () => {
           onFinish={onFinish}
         >
           <Form.Item
-            name="username"
+            name="email"
             rules={[{ required: true, message: "Please input your Username!" }]}
           >
             <Input
@@ -51,7 +73,9 @@ const WithEmail = () => {
           </Form.Item>
 
           <Form.Item>
-            <ButtonLogin className="login-form-button">Log in</ButtonLogin>
+            <ButtonLogin className="login-form-button">
+              Log in {isLoading && <Spin />}
+            </ButtonLogin>
             <span>
               Or <a href="/sign-up">register now!</a>
             </span>

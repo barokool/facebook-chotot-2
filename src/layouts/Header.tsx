@@ -1,12 +1,39 @@
 import { color } from "@constants/color";
 import { ROUTES } from "@constants/routes";
-import { Image } from "antd";
+import { getUserLocal } from "@utils/auth";
+import { USER, VEXE, localHandler } from "@utils/localStorage";
+import { Dropdown, Image, MenuProps } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = () => {
   const navigate = useNavigate();
+  const user = getUserLocal();
+
+  const delUser = () => {
+    localHandler.deleteKey(USER);
+    localHandler.deleteKey(VEXE);
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      key: "1",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.antgroup.com"
+        >
+          My page
+        </a>
+      ),
+    },
+    {
+      key: "1",
+      label: <button onClick={() => delUser()}>Log out</button>,
+    },
+  ];
 
   return (
     <Container>
@@ -19,9 +46,15 @@ const Header = () => {
       />
 
       <ButtonContainer>
-        <OverRightButton onClick={() => navigate(ROUTES.SIGN_IN)}>
-          Log In
-        </OverRightButton>
+        {user ? (
+          <Dropdown menu={{ items }} placement="bottomLeft">
+            <OverRightButton>{user.name}</OverRightButton>
+          </Dropdown>
+        ) : (
+          <OverRightButton onClick={() => navigate(ROUTES.SIGN_IN)}>
+            Log In
+          </OverRightButton>
+        )}
       </ButtonContainer>
     </Container>
   );
