@@ -2,10 +2,18 @@ import { color } from "@constants/color";
 import { ROUTES } from "@constants/routes";
 import { getUserLocal } from "@utils/auth";
 import { USER, VEXE, localHandler } from "@utils/localStorage";
-import { Dropdown, Image, MenuProps } from "antd";
+import { Dropdown, Image, MenuProps, Space, message } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import {
+  DownOutlined,
+  UserOutlined,
+  DoubleLeftOutlined,
+  SettingOutlined,
+  HeartOutlined,
+  HomeOutlined,
+} from "@ant-design/icons";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -16,24 +24,49 @@ const Header = () => {
     localHandler.deleteKey(VEXE);
   };
 
-  const items: MenuProps["items"] = [
+  const itemsCategory = [
     {
+      label: "Feed",
       key: "1",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          My page
-        </a>
-      ),
+      icon: <HomeOutlined />,
+      route: "/trending",
     },
+
     {
-      key: "1",
-      label: <button onClick={() => delUser()}>Log out</button>,
+      label: "Favourite",
+      key: "2",
+      icon: <HeartOutlined />,
+      route: "/favourite",
     },
   ];
+
+  const items: MenuProps["items"] = [
+    {
+      label: "Profile",
+      key: "1",
+      icon: <UserOutlined />,
+    },
+    {
+      label: "Settings",
+      key: "2",
+      icon: <SettingOutlined />,
+    },
+    {
+      label: "Logout",
+      key: "3",
+      icon: <DoubleLeftOutlined />,
+      danger: true,
+    },
+  ];
+
+  const handleMenuClick: MenuProps["onClick"] = (e) => {
+    message.info("Click on menu item.");
+    console.log("click", e);
+  };
+
+  const menuProps: MenuProps = {
+    items,
+  };
 
   return (
     <Container>
@@ -47,8 +80,13 @@ const Header = () => {
 
       <ButtonContainer>
         {user ? (
-          <Dropdown menu={{ items }} placement="bottomLeft">
-            <OverRightButton>{user.name}</OverRightButton>
+          <Dropdown menu={menuProps}>
+            <OverRightButton>
+              <Space>
+                {user.name}
+                <DownOutlined />
+              </Space>
+            </OverRightButton>
           </Dropdown>
         ) : (
           <OverRightButton onClick={() => navigate(ROUTES.SIGN_IN)}>
@@ -93,5 +131,6 @@ const Button = styled.button`
 const OverRightButton = styled(Button)`
   background: ${color.primary};
   outline: none;
+  width: 100%;
   border: none;
 `;

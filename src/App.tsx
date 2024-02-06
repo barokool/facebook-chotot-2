@@ -12,6 +12,7 @@ import LayoutFeed from "layouts/LayoutFeed";
 import Profile from "@pages/Feed/Profile";
 import FilterPage from "@pages/New";
 import BookingPage from "@pages/Booking";
+import BecomeBusiness from "@pages/BecomeBusiness";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path={ROUTES.NEW} element={<FilterPage />} />
             <Route path={ROUTES.BOOKING} element={<BookingPage />} />
+            <Route path={ROUTES.BECOME_BUSINESS} element={<BecomeBusiness />} />
 
             <Route element={<LayoutFeed />}>
               <Route

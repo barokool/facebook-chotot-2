@@ -12,6 +12,7 @@ export const ROUTES = {
 
   // USER
   USER_DETAIL: (id: string) => `/profile/${id}`,
+  BECOME_BUSINESS: "/become-business",
 
   CHAT: "chat",
   NEW: "new",

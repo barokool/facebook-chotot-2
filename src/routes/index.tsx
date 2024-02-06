@@ -3,15 +3,14 @@
 import SignIn from "@pages/Authentications/SignIn";
 import SignUp from "@pages/Authentications/SignUp";
 import WithEmail from "@pages/Authentications/WithEmail";
+import { getUserLocal } from "@utils/auth";
 import { ROUTES } from "constants/routes";
 import { Navigate, Outlet, Route } from "react-router-dom";
 
-const useAuth = () => {
-  return { accessToken: "" };
-};
 export const NotHaveAuthCheck = () => {
-  const { accessToken } = useAuth();
-  return accessToken ? <Navigate to={ROUTES.ALL} /> : <Outlet />;
+  const user = getUserLocal()
+
+  return user ? <Navigate to={ROUTES.ALL} /> : <Outlet />;
 };
 
 export const NotHaveAuthRoute = () => {

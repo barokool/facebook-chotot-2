@@ -6,15 +6,17 @@ import { Select, Row, Col, DatePicker, Button } from "antd";
 import { Content } from "antd/es/layout/layout";
 import FilterSection from "@components/FilterSection";
 import CarouselComponent from "@components/Home/Carousel";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { color } from "@constants/color";
 import { useQuery } from "react-query";
+import { ROUTES } from "@constants/routes";
 
 const Home = () => {
   const query = new URLSearchParams(window.location.search);
   const isRegisterSuccess = query.get("register");
   const [isOpenFormUser, setIsOpenFormUser] = React.useState(false);
   console.log(isRegisterSuccess);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isRegisterSuccess === "success") {
@@ -31,8 +33,14 @@ const Home = () => {
         onOk={() => setIsOpenFormUser(false)}
         onCancel={() => setIsOpenFormUser(false)}
       >
-        <p>Business</p>
-        <p>Normal user as Buyer</p>
+        <TypeUserContainer>
+          <div onClick={() => navigate(ROUTES.BECOME_BUSINESS)}>
+            <p>Business</p>
+          </div>
+          <div>
+            <p>Normal user as Buyer</p>
+          </div>
+        </TypeUserContainer>
       </Modal>
 
       <Wrapper>
@@ -106,3 +114,12 @@ const Wrapper = styled.section`
 `;
 
 const BannerContainer = styled.div``;
+
+const TypeUserContainer = styled.div`
+  display: flex;
+
+  div {
+    width: 50%;
+    text-align: center;
+  }
+`;
